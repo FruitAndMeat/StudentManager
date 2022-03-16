@@ -80,7 +80,7 @@ namespace DAL
             }
         }
         #endregion
-
+        #region 查询学员
         /// <summary>
         /// 根据班级查询学员信息
         /// </summary>
@@ -111,5 +111,69 @@ namespace DAL
             objReader.Close();
             return stuList;
         }
+        /// <summary>
+        /// 根据学号查询学员对象
+        /// </summary>
+        /// <param name="studentId">学员学号</param>
+        /// <returns>返回的学生对象</returns>
+        public Student GetStudentById(string studentId)
+        {
+            string sql = "select StudentId, StudentName, Gender, Birthday, ";
+            sql += "StudentIdNo,PhoneNumber,ClassName,StudentAddress,CardNo,StuImage from Students ";
+            sql += "inner join StudentClass on Students.ClassId=StudentClass.ClassId ";
+            sql += "where StudentId={0}";
+            sql = string.Format(sql, studentId);
+            SqlDataReader objReader = SQLHelper.GetReader(sql);
+            Student objStudent = null;
+            if (objReader.Read())
+            {
+                objStudent = new Student()
+                {
+                    StudentId = Convert.ToInt32(objReader["StudentId"]),
+                    StudentName = objReader["StudentName"].ToString(),
+                    Gender = objReader["Gender"].ToString(),
+                    PhoneNumber = objReader["PhoneNumber"].ToString(),
+                    Birthday = Convert.ToDateTime(objReader["Birthday"].ToString()),
+                    StudentIdNo = objReader["StudentIdNo"].ToString(),
+                    ClassName = objReader["ClassName"].ToString(),
+                    StudentAddress = objReader["StudentAddress"].ToString(),
+                    CardNo = objReader["CardNo"].ToString(),
+                    StuImage = objReader["StuImage"] == null ? "" : objReader["StuImage"].ToString(),
+                };
+            }
+            objReader.Close();
+            return objStudent;
+        }
+        #endregion
+
+        
+        #region 修改学员
+        /// <summary>
+        /// 修改学员对象
+        /// </summary>
+        /// <param name="objStudent"></param>
+        /// <returns></returns>
+        public int ModifyStudent(Student objStudent)
+        {
+            StringBuilder sqlBuilder = new StringBuilder();
+            sqlBuilder.Append("update Students set StudentName='{0}',Gender='{1}',Birthday='{2}',");
+            sqlBuilder.Append("StudentIdNo={3},Age={4},PhoneNumber='{5}',StudentAddress='{6}',");
+            sqlBuilder.Append("CardNo='{7}',ClassId={8},StuImage='{9}' ");
+            sqlBuilder.Append("where StudentId={10}");
+            string sql = string.Format(sqlBuilder.ToString(), objStudent.StudentName, objStudent.Gender,
+                objStudent.Birthday.ToString("yyyy-MM-dd"),objStudent.StudentIdNo, objStudent.Age, objStudent.PhoneNumber, 
+                objStudent.StudentAddress,objStudent.CardNo, objStudent.ClassId, objStudent.StuImage, objStudent.StudentId);
+            try
+            {
+                return SQLHelper.Update(sql);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("修改学员信息时数据访问发生异常："+ex.Message);
+            }
+        }
+
+
+        #endregion
     }
 }

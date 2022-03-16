@@ -47,21 +47,70 @@ namespace StudentManager
         //根据学号查询
         private void btnQueryById_Click(object sender, EventArgs e)
         {
-          
+            //数据验证
+            if (this.txtStudentId.Text.Trim().Length==0)
+            {
+                MessageBox.Show("请输入查询的学号！", "提示信息");
+                this.txtStudentId.Focus();
+                return;
+            }
+            if (!Common.DataValidate.IsInteger(this.txtStudentId.Text.Trim()))
+            {
+                MessageBox.Show("学号必须是整数！", "提示信息");
+                this.txtStudentId.SelectAll();
+                this.txtStudentId.Focus();
+                return;
+            }
+            Student objStudent = objStuService.GetStudentById(this.txtStudentId.Text.Trim());
+            if (objStudent==null)
+            {
+                MessageBox.Show("学院信息不存在", "查询提示");
+                this.txtStudentId.Focus();
+            }
+            else
+            {
+                //显示学员信息
+                FrmStudentInfo objFrm = new FrmStudentInfo(objStudent);
+                objFrm.Show();
+            }
         }
         private void txtStudentId_KeyDown(object sender, KeyEventArgs e)
         {
-         
+            if (this.txtStudentId.Text.Trim().Length!=0&&e.KeyValue==13)
+            {
+                btnQueryById_Click(null, null);
+            }
         }
         //双击选中的学员对象并显示详细信息
         private void dgvStudentList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
-           
+            if (this.dgvStudentList.CurrentRow != null)
+            {
+                string studentId = this.dgvStudentList.CurrentRow.Cells["StudentId"].Value.ToString();
+                Student objStudent = objStuService.GetStudentById(studentId);
+                FrmStudentInfo objFrm = new FrmStudentInfo(objStudent);
+                objFrm.Show();
+            }
         }
         //修改学员对象
         private void btnEidt_Click(object sender, EventArgs e)
         {
-          
+            if (this.dgvStudentList.RowCount==0)
+            {
+                MessageBox.Show("没有任何要修改的学员信息", "提示信息");
+                return;
+            }
+            if (this.dgvStudentList.CurrentRow==null)
+            {
+                MessageBox.Show("请选中要修改的学员信息", "提示信息");
+                return;
+            }
+            //获取学号
+            string studentId = this.dgvStudentList.CurrentRow.Cells["StudentId"].Value.ToString();
+            Student objStudent = objStuService.GetStudentById(studentId);
+            //显示要修改的学员信息窗口
+            FrmEditStudent objFrm = new FrmEditStudent(objStudent);
+            objFrm.Show();
         }
         //删除学员对象
         private void btnDel_Click(object sender, EventArgs e)
@@ -108,6 +157,11 @@ namespace StudentManager
         private void btnExport_Click(object sender, EventArgs e)
         {
 
+        }
+        //右键菜单修改学员
+        private void tsmiModifyStu_Click(object sender, EventArgs e)
+        {
+            btnEidt_Click(null, null);
         }
     }
     #region 实现排序
