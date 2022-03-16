@@ -15,17 +15,48 @@ namespace StudentManager
         public FrmMain()
         {
             InitializeComponent();
-      
+            //显示当前用户
+            this.lblCurrentUser.Text = Program.currentAdmin.AdminName+"]";
+            //显示主窗体背景
+            this.spContainer.Panel2.BackgroundImage = Image.FromFile("mainbg.png");
+            this.spContainer.Panel2.BackgroundImageLayout = ImageLayout.Stretch;
 
+            //显示版本号
+            this.lblVersion.Text = "版本号：" + ConfigurationManager.AppSettings["pversion"];
+            //权限设定...
         }
 
         #region 嵌入窗体显示
-
-    
+        //关闭窗体
+        private void CloseForm()
+        {
+            //判断右侧容器中是否已经存在窗体
+            foreach (Control item in this.spContainer.Panel2.Controls)
+            {
+                if (item is Form)
+                {
+                    Form objControl = (Form)item;
+                    objControl.Close();
+                }
+            }
+        }
+        //显示窗体
+        private void OpenForm(Form objForm)
+        {
+            CloseForm();
+            //嵌入的基本步骤
+            objForm.TopLevel = false;//将子窗体设置为非顶级控件
+            objForm.FormBorderStyle = FormBorderStyle.None;//去掉窗体的边框
+            objForm.Parent = this.spContainer.Panel2;//指定子窗体显示的容器
+            objForm.Dock = DockStyle.Fill;//设置子窗体随着容器大小自动调整窗体大小
+            objForm.Show();
+        }
+        
         //显示添加新学员窗体       
         private void tsmiAddStudent_Click(object sender, EventArgs e)
         {
-          
+            FrmAddStudent objForm = new FrmAddStudent();
+            OpenForm(objForm);
         }
         private void btnAddStu_Click(object sender, EventArgs e)
         {
@@ -34,8 +65,8 @@ namespace StudentManager
         //批量导入学员信息
         private void tsmi_Import_Click(object sender, EventArgs e)
         {
-            //FrmImportData objForm = new FrmImportData();
-            //OpenForm(objForm);
+            FrmImportData objForm = new FrmImportData();
+            OpenForm(objForm);
         }
         private void btnImportStu_Click(object sender, EventArgs e)
         {
@@ -45,7 +76,7 @@ namespace StudentManager
         private void tsmi_Card_Click(object sender, EventArgs e)
         {
             FrmAttendance objForm = new FrmAttendance();
-          //  OpenForm(objForm);
+            OpenForm(objForm);
         }
         private void btnCard_Click(object sender, EventArgs e)
         {
@@ -55,7 +86,7 @@ namespace StudentManager
         private void tsmiQuery_Click(object sender, EventArgs e)
         {
             FrmScoreQuery objForm = new FrmScoreQuery();
-           // OpenForm(objForm);
+           OpenForm(objForm);
         }
         private void btnScoreQuery_Click(object sender, EventArgs e)
         {
@@ -65,7 +96,7 @@ namespace StudentManager
         private void tsmiManageStudent_Click(object sender, EventArgs e)
         {
             FrmStudentManage objForm = new FrmStudentManage();
-           // OpenForm(objForm);
+           OpenForm(objForm);
         }
         private void btnStuManage_Click(object sender, EventArgs e)
         {
@@ -75,7 +106,7 @@ namespace StudentManager
         private void tsmiQueryAndAnalysis_Click(object sender, EventArgs e)
         {
             FrmScoreManage objForm = new FrmScoreManage();
-          //  OpenForm(objForm);
+          OpenForm(objForm);
         }
         private void btnScoreAnalasys_Click(object sender, EventArgs e)
         {
@@ -85,7 +116,7 @@ namespace StudentManager
         private void tsmi_AQuery_Click(object sender, EventArgs e)
         {
             FrmAttendanceQuery objForm = new FrmAttendanceQuery();
-           // OpenForm(objForm);
+           OpenForm(objForm);
         }
         private void btnAttendanceQuery_Click(object sender, EventArgs e)
         {
@@ -107,7 +138,12 @@ namespace StudentManager
         }
         private void FrmMain_FormClosing(object sender, FormClosingEventArgs e)
         {
-        
+            DialogResult result = MessageBox.Show("确认退出吗？", "退出询问", MessageBoxButtons.OKCancel,
+                MessageBoxIcon.Question);
+            if (result!=DialogResult.OK)
+            {
+                e.Cancel = true;//告诉窗体事件取消关闭窗体的事件
+            }
         }
 
         #endregion
@@ -127,7 +163,14 @@ namespace StudentManager
         //账号切换
         private void btnChangeAccount_Click(object sender, EventArgs e)
         {
-
+            //创建登录窗体
+            FrmUserLogin objFrmLogin = new FrmUserLogin();
+            objFrmLogin.Text = "[账号切换]";
+            DialogResult result = objFrmLogin.ShowDialog();
+            if (result==DialogResult.OK)
+            {
+                this.lblCurrentUser.Text= Program.currentAdmin.AdminName+"]";
+            }
         }
         private void tsbAddStudent_Click(object sender, EventArgs e)
         {

@@ -330,6 +330,10 @@
             this.spContainer.Panel1.Controls.Add(this.btnScoreAnalasys);
             this.spContainer.Panel1.Controls.Add(this.btnImportStu);
             this.spContainer.Panel1.Controls.Add(this.btnAddStu);
+            // 
+            // spContainer.Panel2
+            // 
+            this.spContainer.Panel2.BackColor = System.Drawing.SystemColors.Control;
             this.spContainer.Size = new System.Drawing.Size(1264, 682);
             this.spContainer.SplitterDistance = 246;
             this.spContainer.TabIndex = 9;

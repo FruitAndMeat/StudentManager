@@ -76,7 +76,25 @@ namespace StudentManager
         //关闭
         private void btnClose_Click(object sender, EventArgs e)
         {
-           
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+        //改进用户体验
+        private void txtLoginId_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (this.txtLoginId.Text.Trim().Length != 0 && e.KeyValue == 13)
+            {
+                this.txtLoginPwd.Focus();
+                this.txtLoginPwd.SelectAll();
+            }
+        }
+
+        private void txtLoginPwd_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (this.txtLoginPwd.Text.Trim().Length!=0&&e.KeyValue==13)
+            {
+                btnLogin_Click(null, null);
+            }
         }
     }
 }
