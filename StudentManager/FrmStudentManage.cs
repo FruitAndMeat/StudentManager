@@ -16,6 +16,7 @@ namespace StudentManager
     {
         private StudentClassService objClassService=new StudentClassService();
         private StudentService objStuService=new StudentService();
+        private List<Student> stuList = new List<Student>();
 
         public FrmStudentManage()
         {
@@ -38,7 +39,8 @@ namespace StudentManager
                 return;
             }
             //执行查询并绑定数据
-            this.dgvStudentList.DataSource=objStuService.GetStudentByClass(this.cboClass.Text.ToString());
+            this.stuList = objStuService.GetStudentByClass(this.cboClass.Text.ToString());
+            this.dgvStudentList.DataSource=this.stuList;
             new Common.DataGridViewStyle().DgvStyle1(this.dgvStudentList);
             
         }
@@ -69,12 +71,22 @@ namespace StudentManager
         //姓名降序
         private void btnNameDESC_Click(object sender, EventArgs e)
         {
-         
+            if (this.dgvStudentList.RowCount==0)
+            {
+                return;
+            }
+            this.stuList.Sort(new NameDesc());
+            this.dgvStudentList.Refresh();
         }
         //学号降序
         private void btnStuIdDESC_Click(object sender, EventArgs e)
         {
-         
+            if (this.dgvStudentList.RowCount == 0)
+            {
+                return;
+            }
+            this.stuList.Sort(new StuIdDesc());
+            this.dgvStudentList.Refresh();
         }
         //添加行号
         private void dgvStudentList_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
@@ -98,6 +110,21 @@ namespace StudentManager
 
         }
     }
+    #region 实现排序
+    class NameDesc : IComparer<Student>
+    {
+        public int Compare(Student x, Student y)
+        {
+            return y.StudentName.CompareTo(x.StudentName);
+        }
+    }
+    class StuIdDesc : IComparer<Student>
+    {
+        public int Compare(Student x, Student y)
+        {
+            return y.StudentId.CompareTo(x.StudentId);
+        }
+    }
+    #endregion
 
-   
 }
