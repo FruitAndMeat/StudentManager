@@ -24,5 +24,8 @@ namespace Models
         public int ClassId { get; set; }
         //扩展属性
         public string  ClassName { get; set; }
+
+        public int CSharp { get; set; }
+        public int SQLServerDb { get; set; }
     }
 }
