@@ -145,7 +145,27 @@ namespace DAL
             return objStudent;
         }
         #endregion
-
+        /// <summary>
+        /// 修改学员时判断身份证号和其他学员是否重复
+        /// </summary>
+        /// <param name="studentIdNo">新的身份证号</param>
+        /// <param name="studentId">当前学员的学号</param>
+        /// <returns></returns>
+        public bool IsIdNoExisted(string studentIdNo,string studentId)
+        {
+            string sql = string.Format("select count(*) from Students where StudentIdNo={0} and StudentId<>{1}", 
+                studentIdNo, studentId);
+            int result = Convert.ToInt32(SQLHelper.GetSingleResult(sql));
+            if (result==1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        //修改学员时卡号的判断和判断身份证时一样的
         
         #region 修改学员
         /// <summary>
@@ -174,6 +194,38 @@ namespace DAL
         }
 
 
+        #endregion
+
+        #region 删除学员
+        /// <summary>
+        /// 根据学号删除学员对象
+        /// </summary>
+        /// <param name="studentId"></param>
+        /// <returns></returns>
+        public int DeleteStudent(string studentId)
+        {
+            //在正规框架中 ，是按照对象编程，所以需要将参数替换为Student objStudent ;sql语句参数换为 objStudent.studentId。
+            string sql = "delete from Students where StudentId=" + studentId;
+            try
+            {
+                return SQLHelper.Update(sql);
+            }
+            catch (SqlException ex)
+            {
+                if (ex.Number == 547)
+                {
+                    throw new Exception("该学号被其他实体引用，不能直接删除该学员对象！");
+                }
+                else
+                {
+                    throw new Exception("删除学员对象发生数据操作异常：\r\n" + ex.Message);
+                }
+            }
+            catch (Exception  ex)
+            {
+                throw ex;
+            }   
+        }
         #endregion
     }
 }

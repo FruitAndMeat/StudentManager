@@ -93,23 +93,45 @@ namespace StudentManager
                 this.txtStudentIdNo.Focus();
                 return;
             }
-            //从数据库验证身份证号和考勤卡号是否存在
-            if (objStudentService.IsIdNoExisted(this.txtStudentIdNo.Text.Trim()))
-            {
-                MessageBox.Show("当前身份证号已经被其他学员使用！", "验证提示");
-                this.txtStudentIdNo.Focus();
-                this.txtStudentIdNo.SelectAll();
-                return;
-            }
-            if (objStudentService.IsCardNoExisted(this.txtCardNo.Text.Trim()))
-            {
-                MessageBox.Show("当前考勤卡号已经被其他学员使用！", "验证提示");
-                this.txtCardNo.Focus();
-                this.txtCardNo.SelectAll();
-                return;
-            }
             #endregion
             //验证身份证号
+            if (objStudentService.IsIdNoExisted(this.txtStudentIdNo.Text.Trim(), this.txtStudentId.Text.Trim()))
+            {
+                MessageBox.Show("身份证不能和现有其他学员身份证号相同！请修改！", "修改提示");
+                this.txtStudentIdNo.SelectAll();
+                this.txtStudentIdNo.Focus();
+                return;
+            }
+            //卡号验证和上面相同
+
+            //封装对象
+            Student objStudent = new Student()
+            {
+                StudentName = this.txtStudentName.Text.Trim(),
+                Gender = this.rdoMale.Checked ? "男" : "女",
+                Birthday = Convert.ToDateTime(this.dtpBirthday.Text),
+                StudentIdNo = this.txtStudentIdNo.Text.Trim(),
+                PhoneNumber = this.txtPhoneNumber.Text.Trim(),
+                StudentAddress = this.txtAddress.Text.Trim(),
+                ClassId = Convert.ToInt32(this.cboClassName.SelectedValue),
+                Age = DateTime.Now.Year - Convert.ToDateTime(this.dtpBirthday.Text).Year,
+                CardNo = this.txtCardNo.Text.Trim(),
+                StuImage = this.pbStu.Image != null ? new Common.SerializeObjectToString().SerializeObject(this.pbStu.Image) : "",
+                StudentId = Convert.ToInt32(this.txtStudentId.Text.Trim())
+            };
+            try
+            {
+                if (objStudentService.ModifyStudent(objStudent)==1)
+                {
+                    MessageBox.Show("学员信息修改成功！", "提示信息");
+                    this.DialogResult = DialogResult.OK;
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "提示信息");
+            }
         }
 
         private void btnClose_Click(object sender, EventArgs e)
