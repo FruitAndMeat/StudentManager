@@ -39,7 +39,7 @@
             this.gbStat = new System.Windows.Forms.GroupBox();
             this.lblDBAvg = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.lblCount = new System.Windows.Forms.Label();
+            this.lblAbsentCount = new System.Windows.Forms.Label();
             this.lblCSharpAvg = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -108,6 +108,7 @@
             this.dgvScoreList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dgvScoreList.Size = new System.Drawing.Size(767, 533);
             this.dgvScoreList.TabIndex = 7;
+            this.dgvScoreList.CellFormatting += new System.Windows.Forms.DataGridViewCellFormattingEventHandler(this.dgvScoreList_CellFormatting);
             this.dgvScoreList.CurrentCellDirtyStateChanged += new System.EventHandler(this.dgvScoreList_CurrentCellDirtyStateChanged);
             this.dgvScoreList.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvScoreList_RowPostPaint);
             // 
@@ -119,7 +120,6 @@
             this.cboClass.Name = "cboClass";
             this.cboClass.Size = new System.Drawing.Size(181, 20);
             this.cboClass.TabIndex = 0;
-            
             // 
             // label1
             // 
@@ -134,7 +134,7 @@
             // 
             this.gbStat.Controls.Add(this.lblDBAvg);
             this.gbStat.Controls.Add(this.label8);
-            this.gbStat.Controls.Add(this.lblCount);
+            this.gbStat.Controls.Add(this.lblAbsentCount);
             this.gbStat.Controls.Add(this.lblCSharpAvg);
             this.gbStat.Controls.Add(this.label4);
             this.gbStat.Controls.Add(this.label6);
@@ -167,16 +167,16 @@
             this.label8.TabIndex = 11;
             this.label8.Text = "DB平均分：";
             // 
-            // lblCount
+            // lblAbsentCount
             // 
-            this.lblCount.BackColor = System.Drawing.Color.White;
-            this.lblCount.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblCount.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.lblCount.Location = new System.Drawing.Point(97, 79);
-            this.lblCount.Name = "lblCount";
-            this.lblCount.Size = new System.Drawing.Size(61, 23);
-            this.lblCount.TabIndex = 12;
-            this.lblCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblAbsentCount.BackColor = System.Drawing.Color.White;
+            this.lblAbsentCount.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblAbsentCount.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.lblAbsentCount.Location = new System.Drawing.Point(97, 79);
+            this.lblAbsentCount.Name = "lblAbsentCount";
+            this.lblAbsentCount.Size = new System.Drawing.Size(61, 23);
+            this.lblAbsentCount.TabIndex = 12;
+            this.lblAbsentCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblCSharpAvg
             // 
@@ -282,7 +282,7 @@
             // 
             // StudentId
             // 
-            this.StudentId.DataPropertyName = "StudentId";
+            this.StudentId.DataPropertyName = "StudentObj";
             this.StudentId.HeaderText = "学号";
             this.StudentId.Name = "StudentId";
             this.StudentId.ReadOnly = true;
@@ -290,14 +290,14 @@
             // 
             // StudentName
             // 
-            this.StudentName.DataPropertyName = "StudentName";
+            this.StudentName.DataPropertyName = "StudentObj";
             this.StudentName.HeaderText = "姓名";
             this.StudentName.Name = "StudentName";
             this.StudentName.ReadOnly = true;
             // 
             // Gender
             // 
-            this.Gender.DataPropertyName = "Gender";
+            this.Gender.DataPropertyName = "StudentObj";
             this.Gender.HeaderText = "性别";
             this.Gender.Name = "Gender";
             this.Gender.ReadOnly = true;
@@ -305,21 +305,21 @@
             // ClassName
             // 
             this.ClassName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.ClassName.DataPropertyName = "ClassName";
+            this.ClassName.DataPropertyName = "ClassObj";
             this.ClassName.HeaderText = "班级";
             this.ClassName.Name = "ClassName";
             this.ClassName.ReadOnly = true;
             // 
             // CSharp
             // 
-            this.CSharp.DataPropertyName = "CSharp";
+            this.CSharp.DataPropertyName = "ScoreObj";
             this.CSharp.HeaderText = "C#成绩";
             this.CSharp.Name = "CSharp";
             this.CSharp.ReadOnly = true;
             // 
             // SQLServerDB
             // 
-            this.SQLServerDB.DataPropertyName = "SQLServerDB";
+            this.SQLServerDB.DataPropertyName = "ScoreObj";
             this.SQLServerDB.HeaderText = "DB成绩";
             this.SQLServerDB.Name = "SQLServerDB";
             this.SQLServerDB.ReadOnly = true;
@@ -363,7 +363,7 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblDBAvg;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label lblCount;
+        private System.Windows.Forms.Label lblAbsentCount;
         private System.Windows.Forms.Label lblCSharpAvg;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label6;
