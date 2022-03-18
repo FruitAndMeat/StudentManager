@@ -40,14 +40,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txtName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
-            this.lblCount = new System.Windows.Forms.Label();
+            this.lblStudentCount = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.lblReal = new System.Windows.Forms.Label();
+            this.lblSignCount = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.lblAbsenceCount = new System.Windows.Forms.Label();
             this.btnClose = new System.Windows.Forms.Button();
             this.label9 = new System.Windows.Forms.Label();
-            this.DTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SignTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StudentId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CardNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StudentName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -101,7 +101,7 @@
             this.dgvStudentList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvStudentList.ColumnHeadersHeight = 30;
             this.dgvStudentList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.DTime,
+            this.SignTime,
             this.StudentId,
             this.CardNo,
             this.StudentName,
@@ -160,16 +160,16 @@
             this.label3.TabIndex = 0;
             this.label3.Text = "应到：";
             // 
-            // lblCount
+            // lblStudentCount
             // 
-            this.lblCount.BackColor = System.Drawing.Color.White;
-            this.lblCount.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblCount.Location = new System.Drawing.Point(491, 66);
-            this.lblCount.Name = "lblCount";
-            this.lblCount.Size = new System.Drawing.Size(48, 23);
-            this.lblCount.TabIndex = 6;
-            this.lblCount.Text = "0";
-            this.lblCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblStudentCount.BackColor = System.Drawing.Color.White;
+            this.lblStudentCount.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblStudentCount.Location = new System.Drawing.Point(491, 66);
+            this.lblStudentCount.Name = "lblStudentCount";
+            this.lblStudentCount.Size = new System.Drawing.Size(48, 23);
+            this.lblStudentCount.TabIndex = 6;
+            this.lblStudentCount.Text = "0";
+            this.lblStudentCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label5
             // 
@@ -180,16 +180,16 @@
             this.label5.TabIndex = 0;
             this.label5.Text = "实到：";
             // 
-            // lblReal
+            // lblSignCount
             // 
-            this.lblReal.BackColor = System.Drawing.Color.White;
-            this.lblReal.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblReal.Location = new System.Drawing.Point(600, 66);
-            this.lblReal.Name = "lblReal";
-            this.lblReal.Size = new System.Drawing.Size(48, 23);
-            this.lblReal.TabIndex = 6;
-            this.lblReal.Text = "0";
-            this.lblReal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblSignCount.BackColor = System.Drawing.Color.White;
+            this.lblSignCount.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblSignCount.Location = new System.Drawing.Point(600, 66);
+            this.lblSignCount.Name = "lblSignCount";
+            this.lblSignCount.Size = new System.Drawing.Size(48, 23);
+            this.lblSignCount.TabIndex = 6;
+            this.lblSignCount.Text = "0";
+            this.lblSignCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label7
             // 
@@ -236,13 +236,13 @@
             this.label9.TabIndex = 12;
             this.label9.Text = "考勤查询";
             // 
-            // DTime
+            // SignTime
             // 
-            this.DTime.DataPropertyName = "DTime";
-            this.DTime.HeaderText = "打卡时间";
-            this.DTime.Name = "DTime";
-            this.DTime.ReadOnly = true;
-            this.DTime.Width = 150;
+            this.SignTime.DataPropertyName = "SignTime";
+            this.SignTime.HeaderText = "打卡时间";
+            this.SignTime.Name = "SignTime";
+            this.SignTime.ReadOnly = true;
+            this.SignTime.Width = 150;
             // 
             // StudentId
             // 
@@ -291,8 +291,8 @@
             this.Controls.Add(this.label9);
             this.Controls.Add(this.btnClose);
             this.Controls.Add(this.lblAbsenceCount);
-            this.Controls.Add(this.lblReal);
-            this.Controls.Add(this.lblCount);
+            this.Controls.Add(this.lblSignCount);
+            this.Controls.Add(this.lblStudentCount);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.dgvStudentList);
             this.Controls.Add(this.btnQuery);
@@ -322,14 +322,14 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtName;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label lblCount;
+        private System.Windows.Forms.Label lblStudentCount;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label lblReal;
+        private System.Windows.Forms.Label lblSignCount;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lblAbsenceCount;
         private System.Windows.Forms.Button btnClose;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SignTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn StudentId;
         private System.Windows.Forms.DataGridViewTextBoxColumn CardNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn StudentName;

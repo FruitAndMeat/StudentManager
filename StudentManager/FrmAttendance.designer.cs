@@ -30,10 +30,10 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmAttendance));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.timer_ShowTime = new System.Windows.Forms.Timer(this.components);
             this.pbStu = new System.Windows.Forms.PictureBox();
             this.txtStuCardNo = new System.Windows.Forms.TextBox();
             this.lblWeek = new System.Windows.Forms.Label();
@@ -50,7 +50,7 @@
             this.lblStuClass = new System.Windows.Forms.Label();
             this.lblStuId = new System.Windows.Forms.Label();
             this.lblAbsenceCount = new System.Windows.Forms.Label();
-            this.lblReal = new System.Windows.Forms.Label();
+            this.lblSign = new System.Windows.Forms.Label();
             this.lblCount = new System.Windows.Forms.Label();
             this.lblStuName = new System.Windows.Forms.Label();
             this.lblInfo = new System.Windows.Forms.Label();
@@ -63,7 +63,7 @@
             this.label12 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.dgvStudentList = new System.Windows.Forms.DataGridView();
-            this.DTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.SignTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StudentId = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CardNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StudentName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -74,11 +74,11 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvStudentList)).BeginInit();
             this.SuspendLayout();
             // 
-            // timer1
+            // timer_ShowTime
             // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.timer_ShowTime.Enabled = true;
+            this.timer_ShowTime.Interval = 1000;
+            this.timer_ShowTime.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // pbStu
             // 
@@ -284,18 +284,18 @@
             this.lblAbsenceCount.Text = "0";
             this.lblAbsenceCount.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // lblReal
+            // lblSign
             // 
-            this.lblReal.BackColor = System.Drawing.Color.White;
-            this.lblReal.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.lblReal.Font = new System.Drawing.Font("宋体", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.lblReal.Location = new System.Drawing.Point(333, 26);
-            this.lblReal.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
-            this.lblReal.Name = "lblReal";
-            this.lblReal.Size = new System.Drawing.Size(140, 39);
-            this.lblReal.TabIndex = 83;
-            this.lblReal.Text = "0";
-            this.lblReal.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblSign.BackColor = System.Drawing.Color.White;
+            this.lblSign.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.lblSign.Font = new System.Drawing.Font("宋体", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.lblSign.Location = new System.Drawing.Point(333, 26);
+            this.lblSign.Margin = new System.Windows.Forms.Padding(8, 0, 8, 0);
+            this.lblSign.Name = "lblSign";
+            this.lblSign.Size = new System.Drawing.Size(140, 39);
+            this.lblSign.TabIndex = 83;
+            this.lblSign.Text = "0";
+            this.lblSign.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // lblCount
             // 
@@ -357,7 +357,7 @@
             this.gp01.Controls.Add(this.lblStuName);
             this.gp01.Controls.Add(this.lblInfo);
             this.gp01.Controls.Add(this.lblCount);
-            this.gp01.Controls.Add(this.lblReal);
+            this.gp01.Controls.Add(this.lblSign);
             this.gp01.Controls.Add(this.txtStuCardNo);
             this.gp01.Controls.Add(this.lblAbsenceCount);
             this.gp01.Controls.Add(this.lblStuId);
@@ -446,55 +446,56 @@
             this.dgvStudentList.AllowUserToAddRows = false;
             this.dgvStudentList.AllowUserToDeleteRows = false;
             this.dgvStudentList.BackgroundColor = System.Drawing.SystemColors.ButtonFace;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvStudentList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("微软雅黑", 10.5F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvStudentList.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dgvStudentList.ColumnHeadersHeight = 30;
             this.dgvStudentList.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.DTime,
+            this.SignTime,
             this.StudentId,
             this.CardNo,
             this.StudentName,
             this.Gender,
             this.ClassName});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.Blue;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgvStudentList.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.Blue;
+            dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgvStudentList.DefaultCellStyle = dataGridViewCellStyle5;
             this.dgvStudentList.EnableHeadersVisualStyles = false;
             this.dgvStudentList.Location = new System.Drawing.Point(24, 336);
             this.dgvStudentList.Name = "dgvStudentList";
             this.dgvStudentList.ReadOnly = true;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.Color.Red;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.Yellow;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.Red;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgvStudentList.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.Color.Red;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.Yellow;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.Red;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgvStudentList.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dgvStudentList.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.dgvStudentList.RowTemplate.Height = 23;
             this.dgvStudentList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvStudentList.Size = new System.Drawing.Size(959, 316);
             this.dgvStudentList.TabIndex = 98;
+            this.dgvStudentList.RowPostPaint += new System.Windows.Forms.DataGridViewRowPostPaintEventHandler(this.dgvStudentList_RowPostPaint);
             // 
-            // DTime
+            // SignTime
             // 
-            this.DTime.DataPropertyName = "DTime";
-            this.DTime.HeaderText = "打卡时间";
-            this.DTime.Name = "DTime";
-            this.DTime.ReadOnly = true;
-            this.DTime.Width = 150;
+            this.SignTime.DataPropertyName = "SignTime";
+            this.SignTime.HeaderText = "打卡时间";
+            this.SignTime.Name = "SignTime";
+            this.SignTime.ReadOnly = true;
+            this.SignTime.Width = 150;
             // 
             // StudentId
             // 
@@ -559,7 +560,7 @@
             this.Name = "FrmAttendance";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "[考勤打卡进行中...]";
-
+            this.Load += new System.EventHandler(this.FrmAttendance_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbStu)).EndInit();
             this.gp01.ResumeLayout(false);
             this.gp01.PerformLayout();
@@ -571,7 +572,7 @@
 
         #endregion
 
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer timer_ShowTime;
         private System.Windows.Forms.PictureBox pbStu;
         private System.Windows.Forms.TextBox txtStuCardNo;
         private System.Windows.Forms.Label lblWeek;
@@ -588,7 +589,7 @@
         private System.Windows.Forms.Label lblStuClass;
         private System.Windows.Forms.Label lblStuId;
         private System.Windows.Forms.Label lblAbsenceCount;
-        private System.Windows.Forms.Label lblReal;
+        private System.Windows.Forms.Label lblSign;
         private System.Windows.Forms.Label lblCount;
         private System.Windows.Forms.Label lblStuName;
         private System.Windows.Forms.Label lblInfo;
@@ -601,7 +602,7 @@
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.DataGridView dgvStudentList;
-        private System.Windows.Forms.DataGridViewTextBoxColumn DTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn SignTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn StudentId;
         private System.Windows.Forms.DataGridViewTextBoxColumn CardNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn StudentName;

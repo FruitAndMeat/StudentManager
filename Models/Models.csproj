@@ -47,6 +47,7 @@
     <Compile Include="ScoreList.cs" />
     <Compile Include="Student.cs" />
     <Compile Include="StudentClass.cs" />
+    <Compile Include="ExtendModels\StudentExt.cs" />
     <Compile Include="SysAdmin.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

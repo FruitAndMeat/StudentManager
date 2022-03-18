@@ -30,39 +30,80 @@ namespace DAL
 
         #endregion
 
+
+        #region 注销掉的班级查询成绩
         /// <summary>
         /// 根据班级查询考试成绩（或全校成绩列表）
         /// </summary>
         /// <param name="className">班级名称</param>
         /// <returns>返回的查询结果</returns>
-        public List<Student> QueryScoreList(string className)
+        //public List<Student> QueryScoreList(string className)
+        //{
+        //    string sql = "select Students.StudentId,StudentName,ClassName,Gender,CSharp,SQLserverDB ";
+        //    sql += "from Students ";
+        //    sql += "inner join StudentClass on StudentClass.ClassId=Students.ClassId ";
+        //    sql += "inner join ScoreList on ScoreList.StudentId=Students.StudentId";
+        //    if (className!=null&&className.Length!=0)
+        //    {
+        //        sql += string.Format(" where ClassName='{0}'", className);
+        //    }
+        //    SqlDataReader objReader=SQLHelper.GetReader(sql);
+        //    List<Student> stuList = new List<Student>();
+        //    while (objReader.Read())
+        //    {
+        //        stuList.Add(new Student()
+        //        {
+        //            StudentId = Convert.ToInt32(objReader["StudentId"]),
+        //            StudentName = objReader["StudentName"].ToString(),
+        //            ClassName = objReader["ClassName"].ToString(),
+        //            Gender = objReader["Gender"].ToString(),
+        //            CSharp = Convert.ToInt32(objReader["CSharp"].ToString()),
+        //            SQLServerDb = Convert.ToInt32(objReader["SQLserverDB"].ToString())
+        //        });
+        //    }
+        //    objReader.Close();
+        //    return stuList;
+        //}
+        #endregion
+
+        public List<StudentExt> QueryScoreList(string className)
         {
             string sql = "select Students.StudentId,StudentName,ClassName,Gender,CSharp,SQLserverDB ";
             sql += "from Students ";
             sql += "inner join StudentClass on StudentClass.ClassId=Students.ClassId ";
             sql += "inner join ScoreList on ScoreList.StudentId=Students.StudentId";
-            if (className!=null&&className.Length!=0)
+            if (className != null && className.Length != 0)
             {
                 sql += string.Format(" where ClassName='{0}'", className);
             }
-            SqlDataReader objReader=SQLHelper.GetReader(sql);
-            List<Student> stuList = new List<Student>();
+            SqlDataReader objReader = SQLHelper.GetReader(sql);
+            List<StudentExt> stuList = new List<StudentExt>();
             while (objReader.Read())
             {
-                stuList.Add(new Student()
+                stuList.Add(new StudentExt()
                 {
-                    StudentId = Convert.ToInt32(objReader["StudentId"]),
-                    StudentName = objReader["StudentName"].ToString(),
-                    ClassName = objReader["ClassName"].ToString(),
-                    Gender = objReader["Gender"].ToString(),
-                    CSharp = Convert.ToInt32(objReader["CSharp"].ToString()),
-                    SQLServerDb=Convert.ToInt32(objReader["SQLserverDB"].ToString())
-                }) ;
+                    StudentObj=new Student()
+                    {
+                        StudentId = Convert.ToInt32(objReader["StudentId"]),
+                        StudentName = objReader["StudentName"].ToString(),
+                        Gender = objReader["Gender"].ToString(),
+                    },
+                    ClassObj=new StudentClass()
+                    {
+                        ClassName = objReader["ClassName"].ToString(),
+                    },
+                    
+                    ScoreObj=new ScoreList()
+                    {
+                        CSharp = Convert.ToInt32(objReader["CSharp"].ToString()),
+                        SQLServerDB = Convert.ToInt32(objReader["SQLserverDB"].ToString())
+                    },
+                });
             }
             objReader.Close();
             return stuList;
         }
-
+        #region 成绩查询统计
         /// <summary>
         /// 根据班级统计考试成绩相关信息（或全校考试成绩统计）
         /// </summary>
@@ -78,7 +119,7 @@ namespace DAL
                 sql+=string.Format(" where ClassId={0}",classId);
             }
             //查询缺考总人数
-            sql += ";select absentCount(*) from Students where StudentId not in ";
+            sql += ";select absentCount=count(*) from Students where StudentId not in ";
             sql += "(select StudentId from ScoreList)";
             if (classId != null && classId.Length != 0)
             {
@@ -104,7 +145,28 @@ namespace DAL
             objReader.Close();
             return scoreInfo;
         }
-        
-        //根据班级查询缺考人员列表（或全校缺考人员列表）
+
+        /// <summary>
+        /// 根据班级查询缺考人员列表（或全校缺考人员列表）
+        /// </summary>
+        /// <param name="classId">班级编号</param>
+        /// <returns>返回缺考人员姓名</returns>
+        public List<string> QueryAbsentList(string classId)
+        {
+            string sql = "select StudentName from Students where StudentId not in (select StudentId from ScoreList)";
+            if (classId != null && classId.Length != 0)
+            {
+                sql += string.Format(" and ClassId={0}", classId);
+            }
+            SqlDataReader objReader = SQLHelper.GetReader(sql);
+            List<string> nameList = new List<string>();
+            while (objReader.Read())
+            {
+                nameList.Add(objReader["StudentName"].ToString());
+            }
+            objReader.Close();
+            return nameList;
+        }
+        #endregion
     }
 }
